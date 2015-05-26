@@ -1,2 +1,1 @@
-# co_exercise2
-Test exercise from some company - thread-safe hashmap implementation.
+# Test exercise - thread-safe hashmap without using a global lock.
