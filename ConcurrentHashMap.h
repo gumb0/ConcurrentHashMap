@@ -44,7 +44,7 @@ class ConcurrentHashmap
     class NodeList;
 
 public:
-    typedef std::pair<const Value&, std::unique_lock<std::mutex>> LockedValue;
+    typedef std::pair<Value&, std::unique_lock<std::mutex>> LockedValue;
 
     explicit ConcurrentHashmap(
         std::size_t capacity, 
@@ -108,7 +108,7 @@ public:
         const std::size_t index = getIndex(key);
         std::unique_lock<std::mutex> lock(getMutex(index));
 
-        if (const Node* node = mTable[index].find(key))
+        if (Node* node = mTable[index].find(key))
             return LockedValue(node->value, std::move(lock));
         else
             throw ConcurrentHashmapException(ConcurrentHashmapException::KeyNotFound);
